@@ -166,5 +166,29 @@ SELECT unique_no_queries, COUNT(DISTINCT(employee_id)) AS no_employees
 FROM unique_qe
 GROUP BY unique_no_queries
 
-16. 
+16. Your team at JPMorgan Chase is preparing to launch a new credit card, and to gain some insights, you're analyzing how many credit cards were issued each month.
+Write a query that outputs the name of each credit card and the difference in the number of issued cards between the month with the highest issuance cards and the lowest issuance. Arrange the results based on the largest disparity.
 
+-- SQL SOLUTION
+
+
+17. Data was input incorrectly into the database. The ID was combined with the First Name. Write a query to separate the ID and First Name into two separate columns. Each ID is 5 characters long.
+
+-- SQL SOLUTION
+SELECT 
+  SUBSTRING(id,1,5) as id, 
+  SUBSTRING(id,6) as name 
+FROM bad_data
+
+18. Write a query to determine how many direct reports each Manager has. Report the Manager ID, Manager Title, and the number of direct reports in your output.
+Note: Managers will have "Manager" in their title.
+
+-- SQL SOLUTION
+SELECT 
+    m.employee_id,
+    m.position,
+    COUNT(DISTINCT(e.employee_id)) as direct_employee
+FROM direct_reports e
+JOIN direct_reports m ON e.managers_id = m.employee_id
+WHERE m.position LIKE '%Manager%'
+GROUP BY m.employee_id, m.position
